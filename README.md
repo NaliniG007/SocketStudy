@@ -51,8 +51,65 @@ Socket programming finds applications in various domains, including web developm
 2.	Chat Application: Instant messaging and chat applications use sockets to enable real-time communication between users.
 3.	File Transfer Protocol: Protocols like FTP (File Transfer Protocol) utilize socket programming for transferring files between a client and a server.
 4.	Networked Games: Online multiplayer games rely on socket programming to facilitate communication between game clients and servers.
-5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
+5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication
+##server:
+import socket
 
+# Create socket
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Bind socket to IP and port
+host = '127.0.0.1'
+port = 12345
+server_socket.bind((host, port))
+
+# Listen for connections
+server_socket.listen(1)
+print("Server is waiting for connection...")
+
+# Accept client connection
+conn, addr = server_socket.accept()
+print("Connected to:", addr)
+
+# Receive data from client
+data = conn.recv(1024).decode()
+print("Client says:", data)
+
+# Send response to client
+message = "Hello Client, message received!"
+conn.send(message.encode())
+
+# Close connection
+conn.close()
+server_socket.close()
+## Output:
+<img width="1919" height="1005" alt="exp-1 (1)" src="https://github.com/user-attachments/assets/b2a0675a-3d1b-4971-9cec-006efd1f3b7a" />
+
+
+## client:
+import socket
+
+# Create socket
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connect to server
+host = '127.0.0.1'
+port = 12345
+client_socket.connect((host, port))
+
+# Send message to server
+message = "Hello Server!"
+client_socket.send(message.encode())
+
+# Receive response from server
+data = client_socket.recv(1024).decode()
+print("Server says:", data)
+
+# Close socket
+client_socket.close()
+## output:
+
+<img width="1919" height="1001" alt="exp-1 (2)" src="https://github.com/user-attachments/assets/14935d1e-4630-4a8c-a451-923a030292ce" />
 
 ## Result:
 Thus the study of Socket Programming Completed Successfully
